@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.frontend.web.dao.TdViewPageMapper" >
+  <resultMap id="BaseResultMap" type="com.frontend.web.bo.TdViewPage" >
+    <id column="page_id" property="pageId" jdbcType="BIGINT" />
+    <result column="page_code" property="pageCode" jdbcType="VARCHAR" />
+    <result column="page_name" property="pageName" jdbcType="VARCHAR" />
+    <result column="page_url" property="pageUrl" jdbcType="VARCHAR" />
+    <result column="page_type" property="pageType" jdbcType="VARCHAR" />
+    <result column="parent_green_code" property="parentGreenCode" jdbcType="VARCHAR" />
+    <result column="page_state" property="pageState" jdbcType="CHAR" />
+    <result column="staytime_value" property="staytimeValue" jdbcType="BIGINT" />
+    <result column="staytime_unit" property="staytimeUnit" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    page_id, page_code, page_name, page_url, page_type, parent_green_code, page_state, 
+    staytime_value, staytime_unit
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.frontend.web.bo.TdViewPageCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from td_view_page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from td_view_page
+    where page_id = #{pageId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Long" >
+    delete from td_view_page
+    where page_id = #{pageId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.frontend.web.bo.TdViewPageCriteria" >
+    delete from td_view_page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.frontend.web.bo.TdViewPage" >
+    insert into td_view_page (page_id, page_code, page_name, 
+      page_url, page_type, parent_green_code, 
+      page_state, staytime_value, staytime_unit
+      )
+    values (#{pageId,jdbcType=BIGINT}, #{pageCode,jdbcType=VARCHAR}, #{pageName,jdbcType=VARCHAR}, 
+      #{pageUrl,jdbcType=VARCHAR}, #{pageType,jdbcType=VARCHAR}, #{parentGreenCode,jdbcType=VARCHAR}, 
+      #{pageState,jdbcType=CHAR}, #{staytimeValue,jdbcType=BIGINT}, #{staytimeUnit,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.frontend.web.bo.TdViewPage" >
+    insert into td_view_page
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pageId != null" >
+        page_id,
+      </if>
+      <if test="pageCode != null" >
+        page_code,
+      </if>
+      <if test="pageName != null" >
+        page_name,
+      </if>
+      <if test="pageUrl != null" >
+        page_url,
+      </if>
+      <if test="pageType != null" >
+        page_type,
+      </if>
+      <if test="parentGreenCode != null" >
+        parent_green_code,
+      </if>
+      <if test="pageState != null" >
+        page_state,
+      </if>
+      <if test="staytimeValue != null" >
+        staytime_value,
+      </if>
+      <if test="staytimeUnit != null" >
+        staytime_unit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pageId != null" >
+        #{pageId,jdbcType=BIGINT},
+      </if>
+      <if test="pageCode != null" >
+        #{pageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pageName != null" >
+        #{pageName,jdbcType=VARCHAR},
+      </if>
+      <if test="pageUrl != null" >
+        #{pageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pageType != null" >
+        #{pageType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentGreenCode != null" >
+        #{parentGreenCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pageState != null" >
+        #{pageState,jdbcType=CHAR},
+      </if>
+      <if test="staytimeValue != null" >
+        #{staytimeValue,jdbcType=BIGINT},
+      </if>
+      <if test="staytimeUnit != null" >
+        #{staytimeUnit,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.frontend.web.bo.TdViewPageCriteria" resultType="java.lang.Integer" >
+    select count(*) from td_view_page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update td_view_page
+    <set >
+      <if test="record.pageId != null" >
+        page_id = #{record.pageId,jdbcType=BIGINT},
+      </if>
+      <if test="record.pageCode != null" >
+        page_code = #{record.pageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageName != null" >
+        page_name = #{record.pageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageUrl != null" >
+        page_url = #{record.pageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageType != null" >
+        page_type = #{record.pageType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentGreenCode != null" >
+        parent_green_code = #{record.parentGreenCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pageState != null" >
+        page_state = #{record.pageState,jdbcType=CHAR},
+      </if>
+      <if test="record.staytimeValue != null" >
+        staytime_value = #{record.staytimeValue,jdbcType=BIGINT},
+      </if>
+      <if test="record.staytimeUnit != null" >
+        staytime_unit = #{record.staytimeUnit,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update td_view_page
+    set page_id = #{record.pageId,jdbcType=BIGINT},
+      page_code = #{record.pageCode,jdbcType=VARCHAR},
+      page_name = #{record.pageName,jdbcType=VARCHAR},
+      page_url = #{record.pageUrl,jdbcType=VARCHAR},
+      page_type = #{record.pageType,jdbcType=VARCHAR},
+      parent_green_code = #{record.parentGreenCode,jdbcType=VARCHAR},
+      page_state = #{record.pageState,jdbcType=CHAR},
+      staytime_value = #{record.staytimeValue,jdbcType=BIGINT},
+      staytime_unit = #{record.staytimeUnit,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frontend.web.bo.TdViewPage" >
+    update td_view_page
+    <set >
+      <if test="pageCode != null" >
+        page_code = #{pageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pageName != null" >
+        page_name = #{pageName,jdbcType=VARCHAR},
+      </if>
+      <if test="pageUrl != null" >
+        page_url = #{pageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pageType != null" >
+        page_type = #{pageType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentGreenCode != null" >
+        parent_green_code = #{parentGreenCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pageState != null" >
+        page_state = #{pageState,jdbcType=CHAR},
+      </if>
+      <if test="staytimeValue != null" >
+        staytime_value = #{staytimeValue,jdbcType=BIGINT},
+      </if>
+      <if test="staytimeUnit != null" >
+        staytime_unit = #{staytimeUnit,jdbcType=CHAR},
+      </if>
+    </set>
+    where page_id = #{pageId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frontend.web.bo.TdViewPage" >
+    update td_view_page
+    set page_code = #{pageCode,jdbcType=VARCHAR},
+      page_name = #{pageName,jdbcType=VARCHAR},
+      page_url = #{pageUrl,jdbcType=VARCHAR},
+      page_type = #{pageType,jdbcType=VARCHAR},
+      parent_green_code = #{parentGreenCode,jdbcType=VARCHAR},
+      page_state = #{pageState,jdbcType=CHAR},
+      staytime_value = #{staytimeValue,jdbcType=BIGINT},
+      staytime_unit = #{staytimeUnit,jdbcType=CHAR}
+    where page_id = #{pageId,jdbcType=BIGINT}
+  </update>
+</mapper>

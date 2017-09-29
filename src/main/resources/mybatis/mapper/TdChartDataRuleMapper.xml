@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.frontend.web.dao.TdChartDataRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.frontend.web.bo.TdChartDataRule" >
+    <id column="rule_id" property="ruleId" jdbcType="BIGINT" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="rule_code" property="ruleCode" jdbcType="VARCHAR" />
+    <result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+    <result column="param_value1" property="paramValue1" jdbcType="VARCHAR" />
+    <result column="param_value2" property="paramValue2" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rule_id, rule_name, rule_code, param_code, param_value1, param_value2, state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.frontend.web.bo.TdChartDataRuleCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from td_chart_data_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from td_chart_data_rule
+    where rule_id = #{ruleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Long" >
+    delete from td_chart_data_rule
+    where rule_id = #{ruleId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.frontend.web.bo.TdChartDataRuleCriteria" >
+    delete from td_chart_data_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.frontend.web.bo.TdChartDataRule" >
+    insert into td_chart_data_rule (rule_id, rule_name, rule_code, 
+      param_code, param_value1, param_value2, 
+      state)
+    values (#{ruleId,jdbcType=BIGINT}, #{ruleName,jdbcType=VARCHAR}, #{ruleCode,jdbcType=VARCHAR}, 
+      #{paramCode,jdbcType=VARCHAR}, #{paramValue1,jdbcType=VARCHAR}, #{paramValue2,jdbcType=VARCHAR}, 
+      #{state,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frontend.web.bo.TdChartDataRule" >
+    insert into td_chart_data_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        rule_id,
+      </if>
+      <if test="ruleName != null" >
+        rule_name,
+      </if>
+      <if test="ruleCode != null" >
+        rule_code,
+      </if>
+      <if test="paramCode != null" >
+        param_code,
+      </if>
+      <if test="paramValue1 != null" >
+        param_value1,
+      </if>
+      <if test="paramValue2 != null" >
+        param_value2,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=BIGINT},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleCode != null" >
+        #{ruleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paramCode != null" >
+        #{paramCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue1 != null" >
+        #{paramValue1,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue2 != null" >
+        #{paramValue2,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.frontend.web.bo.TdChartDataRuleCriteria" resultType="java.lang.Integer" >
+    select count(*) from td_chart_data_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update td_chart_data_rule
+    <set >
+      <if test="record.ruleId != null" >
+        rule_id = #{record.ruleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.ruleName != null" >
+        rule_name = #{record.ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ruleCode != null" >
+        rule_code = #{record.ruleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramCode != null" >
+        param_code = #{record.paramCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramValue1 != null" >
+        param_value1 = #{record.paramValue1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paramValue2 != null" >
+        param_value2 = #{record.paramValue2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update td_chart_data_rule
+    set rule_id = #{record.ruleId,jdbcType=BIGINT},
+      rule_name = #{record.ruleName,jdbcType=VARCHAR},
+      rule_code = #{record.ruleCode,jdbcType=VARCHAR},
+      param_code = #{record.paramCode,jdbcType=VARCHAR},
+      param_value1 = #{record.paramValue1,jdbcType=VARCHAR},
+      param_value2 = #{record.paramValue2,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frontend.web.bo.TdChartDataRule" >
+    update td_chart_data_rule
+    <set >
+      <if test="ruleName != null" >
+        rule_name = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleCode != null" >
+        rule_code = #{ruleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paramCode != null" >
+        param_code = #{paramCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue1 != null" >
+        param_value1 = #{paramValue1,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue2 != null" >
+        param_value2 = #{paramValue2,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=CHAR},
+      </if>
+    </set>
+    where rule_id = #{ruleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frontend.web.bo.TdChartDataRule" >
+    update td_chart_data_rule
+    set rule_name = #{ruleName,jdbcType=VARCHAR},
+      rule_code = #{ruleCode,jdbcType=VARCHAR},
+      param_code = #{paramCode,jdbcType=VARCHAR},
+      param_value1 = #{paramValue1,jdbcType=VARCHAR},
+      param_value2 = #{paramValue2,jdbcType=VARCHAR},
+      state = #{state,jdbcType=CHAR}
+    where rule_id = #{ruleId,jdbcType=BIGINT}
+  </update>
+</mapper>

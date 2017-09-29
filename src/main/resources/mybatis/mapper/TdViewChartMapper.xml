@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.frontend.web.dao.TdViewChartMapper" >
+  <resultMap id="BaseResultMap" type="com.frontend.web.bo.TdViewChart" >
+    <id column="chart_id" property="chartId" jdbcType="BIGINT" />
+    <result column="chart_code" property="chartCode" jdbcType="VARCHAR" />
+    <result column="chart_name" property="chartName" jdbcType="VARCHAR" />
+    <result column="chart_type_code" property="chartTypeCode" jdbcType="VARCHAR" />
+    <result column="circle_type" property="circleType" jdbcType="CHAR" />
+    <result column="rule_code" property="ruleCode" jdbcType="VARCHAR" />
+    <result column="time_val_abs" property="timeValAbs" jdbcType="VARCHAR" />
+    <result column="time_val_ral" property="timeValRal" jdbcType="BIGINT" />
+    <result column="time_unit" property="timeUnit" jdbcType="CHAR" />
+    <result column="chart_state" property="chartState" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    chart_id, chart_code, chart_name, chart_type_code, circle_type, rule_code, time_val_abs, 
+    time_val_ral, time_unit, chart_state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.frontend.web.bo.TdViewChartCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from td_view_chart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from td_view_chart
+    where chart_id = #{chartId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Long" >
+    delete from td_view_chart
+    where chart_id = #{chartId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.frontend.web.bo.TdViewChartCriteria" >
+    delete from td_view_chart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.frontend.web.bo.TdViewChart" >
+    insert into td_view_chart (chart_id, chart_code, chart_name, 
+      chart_type_code, circle_type, rule_code, 
+      time_val_abs, time_val_ral, time_unit, 
+      chart_state)
+    values (#{chartId,jdbcType=BIGINT}, #{chartCode,jdbcType=VARCHAR}, #{chartName,jdbcType=VARCHAR}, 
+      #{chartTypeCode,jdbcType=VARCHAR}, #{circleType,jdbcType=CHAR}, #{ruleCode,jdbcType=VARCHAR}, 
+      #{timeValAbs,jdbcType=VARCHAR}, #{timeValRal,jdbcType=BIGINT}, #{timeUnit,jdbcType=CHAR}, 
+      #{chartState,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frontend.web.bo.TdViewChart" >
+    insert into td_view_chart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="chartId != null" >
+        chart_id,
+      </if>
+      <if test="chartCode != null" >
+        chart_code,
+      </if>
+      <if test="chartName != null" >
+        chart_name,
+      </if>
+      <if test="chartTypeCode != null" >
+        chart_type_code,
+      </if>
+      <if test="circleType != null" >
+        circle_type,
+      </if>
+      <if test="ruleCode != null" >
+        rule_code,
+      </if>
+      <if test="timeValAbs != null" >
+        time_val_abs,
+      </if>
+      <if test="timeValRal != null" >
+        time_val_ral,
+      </if>
+      <if test="timeUnit != null" >
+        time_unit,
+      </if>
+      <if test="chartState != null" >
+        chart_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="chartId != null" >
+        #{chartId,jdbcType=BIGINT},
+      </if>
+      <if test="chartCode != null" >
+        #{chartCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chartName != null" >
+        #{chartName,jdbcType=VARCHAR},
+      </if>
+      <if test="chartTypeCode != null" >
+        #{chartTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="circleType != null" >
+        #{circleType,jdbcType=CHAR},
+      </if>
+      <if test="ruleCode != null" >
+        #{ruleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="timeValAbs != null" >
+        #{timeValAbs,jdbcType=VARCHAR},
+      </if>
+      <if test="timeValRal != null" >
+        #{timeValRal,jdbcType=BIGINT},
+      </if>
+      <if test="timeUnit != null" >
+        #{timeUnit,jdbcType=CHAR},
+      </if>
+      <if test="chartState != null" >
+        #{chartState,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.frontend.web.bo.TdViewChartCriteria" resultType="java.lang.Integer" >
+    select count(*) from td_view_chart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update td_view_chart
+    <set >
+      <if test="record.chartId != null" >
+        chart_id = #{record.chartId,jdbcType=BIGINT},
+      </if>
+      <if test="record.chartCode != null" >
+        chart_code = #{record.chartCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chartName != null" >
+        chart_name = #{record.chartName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chartTypeCode != null" >
+        chart_type_code = #{record.chartTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.circleType != null" >
+        circle_type = #{record.circleType,jdbcType=CHAR},
+      </if>
+      <if test="record.ruleCode != null" >
+        rule_code = #{record.ruleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeValAbs != null" >
+        time_val_abs = #{record.timeValAbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeValRal != null" >
+        time_val_ral = #{record.timeValRal,jdbcType=BIGINT},
+      </if>
+      <if test="record.timeUnit != null" >
+        time_unit = #{record.timeUnit,jdbcType=CHAR},
+      </if>
+      <if test="record.chartState != null" >
+        chart_state = #{record.chartState,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update td_view_chart
+    set chart_id = #{record.chartId,jdbcType=BIGINT},
+      chart_code = #{record.chartCode,jdbcType=VARCHAR},
+      chart_name = #{record.chartName,jdbcType=VARCHAR},
+      chart_type_code = #{record.chartTypeCode,jdbcType=VARCHAR},
+      circle_type = #{record.circleType,jdbcType=CHAR},
+      rule_code = #{record.ruleCode,jdbcType=VARCHAR},
+      time_val_abs = #{record.timeValAbs,jdbcType=VARCHAR},
+      time_val_ral = #{record.timeValRal,jdbcType=BIGINT},
+      time_unit = #{record.timeUnit,jdbcType=CHAR},
+      chart_state = #{record.chartState,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frontend.web.bo.TdViewChart" >
+    update td_view_chart
+    <set >
+      <if test="chartCode != null" >
+        chart_code = #{chartCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chartName != null" >
+        chart_name = #{chartName,jdbcType=VARCHAR},
+      </if>
+      <if test="chartTypeCode != null" >
+        chart_type_code = #{chartTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="circleType != null" >
+        circle_type = #{circleType,jdbcType=CHAR},
+      </if>
+      <if test="ruleCode != null" >
+        rule_code = #{ruleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="timeValAbs != null" >
+        time_val_abs = #{timeValAbs,jdbcType=VARCHAR},
+      </if>
+      <if test="timeValRal != null" >
+        time_val_ral = #{timeValRal,jdbcType=BIGINT},
+      </if>
+      <if test="timeUnit != null" >
+        time_unit = #{timeUnit,jdbcType=CHAR},
+      </if>
+      <if test="chartState != null" >
+        chart_state = #{chartState,jdbcType=CHAR},
+      </if>
+    </set>
+    where chart_id = #{chartId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frontend.web.bo.TdViewChart" >
+    update td_view_chart
+    set chart_code = #{chartCode,jdbcType=VARCHAR},
+      chart_name = #{chartName,jdbcType=VARCHAR},
+      chart_type_code = #{chartTypeCode,jdbcType=VARCHAR},
+      circle_type = #{circleType,jdbcType=CHAR},
+      rule_code = #{ruleCode,jdbcType=VARCHAR},
+      time_val_abs = #{timeValAbs,jdbcType=VARCHAR},
+      time_val_ral = #{timeValRal,jdbcType=BIGINT},
+      time_unit = #{timeUnit,jdbcType=CHAR},
+      chart_state = #{chartState,jdbcType=CHAR}
+    where chart_id = #{chartId,jdbcType=BIGINT}
+  </update>
+</mapper>

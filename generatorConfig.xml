@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry  location="E:\soft\gradle-3.1\cache\caches\modules-2\files-2.1\mysql\mysql-connector-java\5.1.30\203cca178350b60899be36d0e56029eca7430d8\mysql-connector-java-5.1.30.jar"/>    
+  <context id="estrsdb">
+    <jdbcConnection 
+    	connectionURL="jdbc:mysql://192.168.97.13:3306/estrsdb" 
+    	driverClass="com.mysql.jdbc.Driver" 
+    	password="devestrsusr1" 
+    	userId="devestrsusr1" />
+    <javaModelGenerator targetPackage="org.big.show.bo" targetProject="big-show-rest" />
+    <!-- <sqlMapGenerator targetPackage="???" targetProject="???" />
+    <javaClientGenerator targetPackage="???" targetProject="???" type="XMLMAPPER" /> -->
+    <table tableName="td_code_code"></table>
+    <table tableName="td_dim"></table>
+    <table tableName="td_dim_dic"></table>
+    <table tableName="td_quota"></table>
+    <table tableName="td_quota_item"></table>
+    <table tableName="td_quota_warning"></table>
+    <table tableName="td_result_config"></table>
+    <table tableName="td_result_show"></table>
+    <table tableName="td_result_sql_para"></table>
+    <table tableName="td_table_para_def"></table>
+    <table tableName="td_trans_result_idx_cal"></table>
+    <table tableName="tf_result_config_log"></table>
+
+  </context>
+  <context id="esrltdb">
+    <jdbcConnection 
+    	connectionURL="jdbc:mysql://192.168.97.13:3306/esrltdb" 
+    	driverClass="com.mysql.jdbc.Driver" 
+    	password="devesrltusr1" 
+    	userId="devesrltusr1" />
+    <javaModelGenerator targetPackage="org.big.show.bo" targetProject="big-show-rest" />
+    <!-- <sqlMapGenerator targetPackage="???" targetProject="???" />
+    <javaClientGenerator targetPackage="???" targetProject="???" type="XMLMAPPER" /> -->
+    <table tableName="tf_quota_result_detail"></table>
+    <table tableName="tf_quota_result_detail_day"></table>
+    <table tableName="tf_quota_result_detail_month"></table>
+  
+
+  </context>
+</generatorConfiguration>

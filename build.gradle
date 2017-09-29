@@ -1,0 +1,93 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+compileJava.dependsOn clean
+
+sourceCompatibility = 1.8
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    exclude group: 'log4j', module: 'log4j'
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+    //maven { url "http://127.0.0.1:8088/nexus/content/groups/public/" }
+
+    maven { url "http://117.78.32.224:18081/nexus/content/groups/public/" }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile "jstl:jstl:1.2"
+    compile "org.springframework:spring-web:4.3.11.RELEASE"
+    compile "org.springframework:spring-webmvc:4.3.11.RELEASE"
+    compile "javax.servlet:javax.servlet-api:3.1.0"
+    compile "javax.servlet.jsp:javax.servlet.jsp-api:2.3.1"
+    compile 'org.mybatis:mybatis-spring:1.2.2'
+    compile 'org.mybatis:mybatis:3.3.0'
+    compile "org.springframework:spring-tx:4.3.11.RELEASE"
+    compile "org.springframework:spring-jdbc:4.3.11.RELEASE"
+    compile "org.apache.commons:commons-dbcp2:2.1"
+    compile 'mysql:mysql-connector-java:5.1.35'
+	compile 'org.postgresql:postgresql:9.4-1201-jdbc41'    
+//    compile 'mysql:mysql-connector-java:5.1.35'
+    //compile 'org.apache.logging.log4j:log4j-core:2.3'
+    //compile 'org.apache.logging.log4j:log4j-api:2.3'
+    //compile 'org.apache.logging.log4j:log4j-1.2-api:2.3'
+    
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.4'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.4'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.4'
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-jcl', version: '2.4'
+    compile 'log4j:log4j:1.2.17'
+	compile "org.slf4j:slf4j-api:1.7.12"
+	compile "org.slf4j:slf4j-log4j12:1.7.12"
+
+    compile 'org.apache.curator:curator-framework:2.8.0'
+    compile 'org.apache.curator:curator-recipes:2.8.0'
+    compile "org.apache.zookeeper:zookeeper:3.4.6"
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'org.quartz-scheduler:quartz:2.2.1'
+
+    //Zookeeper
+    compile 'org.apache.curator:curator-framework:2.8.0'
+    compile 'org.apache.curator:curator-recipes:2.8.0'
+    compile "org.apache.zookeeper:zookeeper:3.4.6"
+    
+    compile "com.alibaba:fastjson:1.2.38"
+	compile 'org.apache.commons:commons-lang3:3.4'
+
+	compile 'org.apache.httpcomponents:httpclient:4.5'
+
+    testCompile(
+            "org.springframework:spring-test:3.2.13.RELEASE",
+            "junit:junit:4.11"
+    )
+}
+
+eclipse {
+    wtp {
+        facet {
+            facet name: 'java', version: '1.7'
+            facet name: 'jst.web', version: '3.0'
+            facet name: 'wst.jsdt.web', version: '1.0'
+        }
+    }
+}
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java'
+		}
+		resources {
+			srcDir 'src/main/resources'
+		}
+	}
+}
+
+war {
+    archiveName 'frontend-web.war'
+}

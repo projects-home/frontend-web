@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.frontend.web.dao.TdRouteRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.frontend.web.bo.TdRouteRule" >
+    <id column="ROUTE_ID" property="routeId" jdbcType="BIGINT" />
+    <result column="GET_VALUE_EXPR" property="getValueExpr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ROUTE_ID, GET_VALUE_EXPR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.frontend.web.bo.TdRouteRuleCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from td_route_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from td_route_rule
+    where ROUTE_ID = #{routeId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Long" >
+    delete from td_route_rule
+    where ROUTE_ID = #{routeId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.frontend.web.bo.TdRouteRuleCriteria" >
+    delete from td_route_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.frontend.web.bo.TdRouteRule" >
+    insert into td_route_rule (ROUTE_ID, GET_VALUE_EXPR)
+    values (#{routeId,jdbcType=BIGINT}, #{getValueExpr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frontend.web.bo.TdRouteRule" >
+    insert into td_route_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        ROUTE_ID,
+      </if>
+      <if test="getValueExpr != null" >
+        GET_VALUE_EXPR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="getValueExpr != null" >
+        #{getValueExpr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.frontend.web.bo.TdRouteRuleCriteria" resultType="java.lang.Integer" >
+    select count(*) from td_route_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update td_route_rule
+    <set >
+      <if test="record.routeId != null" >
+        ROUTE_ID = #{record.routeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.getValueExpr != null" >
+        GET_VALUE_EXPR = #{record.getValueExpr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update td_route_rule
+    set ROUTE_ID = #{record.routeId,jdbcType=BIGINT},
+      GET_VALUE_EXPR = #{record.getValueExpr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frontend.web.bo.TdRouteRule" >
+    update td_route_rule
+    <set >
+      <if test="getValueExpr != null" >
+        GET_VALUE_EXPR = #{getValueExpr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROUTE_ID = #{routeId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frontend.web.bo.TdRouteRule" >
+    update td_route_rule
+    set GET_VALUE_EXPR = #{getValueExpr,jdbcType=VARCHAR}
+    where ROUTE_ID = #{routeId,jdbcType=BIGINT}
+  </update>
+</mapper>

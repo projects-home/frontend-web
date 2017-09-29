@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.frontend.web.dao.TdViewArchMapper" >
+  <resultMap id="BaseResultMap" type="com.frontend.web.bo.TdViewArch" >
+    <id column="arch_id" property="archId" jdbcType="BIGINT" />
+    <result column="page_code" property="pageCode" jdbcType="VARCHAR" />
+    <result column="arch_code" property="archCode" jdbcType="VARCHAR" />
+    <result column="arch_name" property="archName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="staytime_value" property="staytimeValue" jdbcType="BIGINT" />
+    <result column="staytime_unit" property="staytimeUnit" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    arch_id, page_code, arch_code, arch_name, state, staytime_value, staytime_unit
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.frontend.web.bo.TdViewArchCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from td_view_arch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from td_view_arch
+    where arch_id = #{archId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Long" >
+    delete from td_view_arch
+    where arch_id = #{archId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.frontend.web.bo.TdViewArchCriteria" >
+    delete from td_view_arch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.frontend.web.bo.TdViewArch" >
+    insert into td_view_arch (arch_id, page_code, arch_code, 
+      arch_name, state, staytime_value, 
+      staytime_unit)
+    values (#{archId,jdbcType=BIGINT}, #{pageCode,jdbcType=VARCHAR}, #{archCode,jdbcType=VARCHAR}, 
+      #{archName,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, #{staytimeValue,jdbcType=BIGINT}, 
+      #{staytimeUnit,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frontend.web.bo.TdViewArch" >
+    insert into td_view_arch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="archId != null" >
+        arch_id,
+      </if>
+      <if test="pageCode != null" >
+        page_code,
+      </if>
+      <if test="archCode != null" >
+        arch_code,
+      </if>
+      <if test="archName != null" >
+        arch_name,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="staytimeValue != null" >
+        staytime_value,
+      </if>
+      <if test="staytimeUnit != null" >
+        staytime_unit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="archId != null" >
+        #{archId,jdbcType=BIGINT},
+      </if>
+      <if test="pageCode != null" >
+        #{pageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="archCode != null" >
+        #{archCode,jdbcType=VARCHAR},
+      </if>
+      <if test="archName != null" >
+        #{archName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="staytimeValue != null" >
+        #{staytimeValue,jdbcType=BIGINT},
+      </if>
+      <if test="staytimeUnit != null" >
+        #{staytimeUnit,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.frontend.web.bo.TdViewArchCriteria" resultType="java.lang.Integer" >
+    select count(*) from td_view_arch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update td_view_arch
+    <set >
+      <if test="record.archId != null" >
+        arch_id = #{record.archId,jdbcType=BIGINT},
+      </if>
+      <if test="record.pageCode != null" >
+        page_code = #{record.pageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.archCode != null" >
+        arch_code = #{record.archCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.archName != null" >
+        arch_name = #{record.archName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=CHAR},
+      </if>
+      <if test="record.staytimeValue != null" >
+        staytime_value = #{record.staytimeValue,jdbcType=BIGINT},
+      </if>
+      <if test="record.staytimeUnit != null" >
+        staytime_unit = #{record.staytimeUnit,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update td_view_arch
+    set arch_id = #{record.archId,jdbcType=BIGINT},
+      page_code = #{record.pageCode,jdbcType=VARCHAR},
+      arch_code = #{record.archCode,jdbcType=VARCHAR},
+      arch_name = #{record.archName,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=CHAR},
+      staytime_value = #{record.staytimeValue,jdbcType=BIGINT},
+      staytime_unit = #{record.staytimeUnit,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frontend.web.bo.TdViewArch" >
+    update td_view_arch
+    <set >
+      <if test="pageCode != null" >
+        page_code = #{pageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="archCode != null" >
+        arch_code = #{archCode,jdbcType=VARCHAR},
+      </if>
+      <if test="archName != null" >
+        arch_name = #{archName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="staytimeValue != null" >
+        staytime_value = #{staytimeValue,jdbcType=BIGINT},
+      </if>
+      <if test="staytimeUnit != null" >
+        staytime_unit = #{staytimeUnit,jdbcType=CHAR},
+      </if>
+    </set>
+    where arch_id = #{archId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frontend.web.bo.TdViewArch" >
+    update td_view_arch
+    set page_code = #{pageCode,jdbcType=VARCHAR},
+      arch_code = #{archCode,jdbcType=VARCHAR},
+      arch_name = #{archName,jdbcType=VARCHAR},
+      state = #{state,jdbcType=CHAR},
+      staytime_value = #{staytimeValue,jdbcType=BIGINT},
+      staytime_unit = #{staytimeUnit,jdbcType=CHAR}
+    where arch_id = #{archId,jdbcType=BIGINT}
+  </update>
+</mapper>
